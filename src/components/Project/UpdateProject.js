@@ -14,6 +14,7 @@ class UpdateProject extends Component {
       description: "",
       start_date: "",
       end_date: "",
+      errors: {},
     };
   }
 
@@ -23,6 +24,9 @@ class UpdateProject extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
     const {
       id,
       projectName,
@@ -60,6 +64,7 @@ class UpdateProject extends Component {
 
   render() {
     const { project } = this.props;
+    const { errors } = this.state;
     console.log(project);
     return (
       <div className="project">
@@ -72,12 +77,19 @@ class UpdateProject extends Component {
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control form-control-lg "
+                    className={
+                      errors.projectName
+                        ? "form-control form-control-lg is-invalid"
+                        : "form-control form-control-lg "
+                    }
                     placeholder="Project Name"
                     value={this.state.projectName}
                     name="projectName"
                     onChange={this.onChange}
                   />
+                  {errors.projectName && (
+                    <div className="invalid-feedback">{errors.projectName}</div>
+                  )}
                 </div>
                 <br />
                 <div className="form-group">
@@ -94,12 +106,19 @@ class UpdateProject extends Component {
                 <br />
                 <div className="form-group">
                   <textarea
-                    className="form-control form-control-lg"
+                    className={
+                      errors.description
+                        ? "form-control form-control-lg is-invalid"
+                        : "form-control form-control-lg"
+                    }
                     placeholder="Project Description"
                     name="description"
                     value={this.state.description}
                     onChange={this.onChange}
                   ></textarea>
+                  {errors.description && (
+                    <div className="invalid-feedback">{errors.description}</div>
+                  )}
                 </div>
                 <br />
                 <h6>Start Date</h6>
@@ -141,10 +160,12 @@ UpdateProject.propTypes = {
   getProject: PropTypes.func.isRequired,
   project: PropTypes.object.isRequired,
   createProject: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   project: state.project.project,
+  errors: state.errors,
 });
 
 export default connect(mapStateToProps, { getProject, createProject })(
