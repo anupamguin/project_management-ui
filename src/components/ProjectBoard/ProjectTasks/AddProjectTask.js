@@ -41,6 +41,12 @@ class AddProjectTask extends Component {
     );
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   render() {
     const { id } = this.props.match.params;
     return (
@@ -57,12 +63,21 @@ class AddProjectTask extends Component {
                 <div className="form-group mt-4">
                   <input
                     type="text"
-                    className="form-control form-control-lg"
+                    className={
+                      this.state.errors.summary
+                        ? "form-control form-control-lg is-invalid"
+                        : "form-control form-control-lg"
+                    }
                     name="summary"
                     placeholder="Project Task summary"
                     value={this.state.summary}
                     onChange={this.onChange}
                   />
+                  {this.state.errors.summary && (
+                    <div className="invalid-feedback">
+                      {this.state.errors.summary}
+                    </div>
+                  )}
                 </div>
                 <div className="form-group mt-4">
                   <textarea
@@ -126,5 +141,11 @@ class AddProjectTask extends Component {
 
 AddProjectTask.propTypes = {
   addProjectTask: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
 };
-export default connect(null, { addProjectTask })(AddProjectTask);
+
+const mapStateToProps = (state) => ({
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { addProjectTask })(AddProjectTask);
