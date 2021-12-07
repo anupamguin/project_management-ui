@@ -20,9 +20,31 @@ axios.interceptors.response.use(
   },
   function (error) {
     try {
-      if (401 === error.response.status) console.warn("401 Error Came ");
-      else if (404 === error.response.status) console.warn("404 Error Came ");
-      else if (500 === error.response.status) {
+      if (401 === error.response.status) {
+        console.warn("401 Error Came ");
+        let endpoint = error.response.config.url.split("/")[3];
+        store.dispatch({
+          type: SET_GLOBAL_ALERT_MODAL,
+          payload: {
+            show: true,
+            type: "warning",
+            title: `Error with ${endpoint} endpoint`,
+            message: `${endpoint} endpoint is unresponsive , Something Error`,
+          },
+        });
+      } else if (404 === error.response.status) {
+        console.warn("404 Error Came ");
+        let endpoint = error.response.config.url.split("/")[3];
+        store.dispatch({
+          type: SET_GLOBAL_ALERT_MODAL,
+          payload: {
+            show: true,
+            type: "warning",
+            title: `Error with ${endpoint} endpoint`,
+            message: `${endpoint} endpoint is unresponsive , Please contact to admin`,
+          },
+        });
+      } else if (500 === error.response.status) {
         let endpoint = error.response.config.url.split("/")[3];
         console.log(endpoint, "    ", error.response.config.url);
         store.dispatch({

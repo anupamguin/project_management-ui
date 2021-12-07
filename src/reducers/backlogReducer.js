@@ -9,7 +9,7 @@ const initialState = {
   project_task: {},
 };
 
-export default function (state = initialState, action) {
+export default function backlogReducer(state = initialState, action) {
   switch (action.type) {
     case GET_BACKLOG:
       return {
