@@ -12,6 +12,7 @@ import AddProjectTask from "./components/ProjectBoard/ProjectTasks/AddProjectTas
 import axios from "axios";
 import { SET_GLOBAL_ALERT_MODAL } from "./components/GlobalAlertModal/globarAlertModalAction";
 import GlobalAlertModal from "./components/GlobalAlertModal/globalAlertModal";
+import UpdateProjectTask from "./components/ProjectBoard/ProjectTasks/UpdateProjectTask";
 
 // For any backend error
 axios.interceptors.response.use(
@@ -79,6 +80,11 @@ function App() {
               exact
               path="/addProjectTask/:id"
               component={AddProjectTask}
+            />
+            <Route
+              exact
+              path="/updateProjectTask/:backlog_id/:pt_id"
+              component={UpdateProjectTask}
             />
           </div>
         </Router>
