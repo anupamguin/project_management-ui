@@ -13,6 +13,9 @@ import axios from "axios";
 import { SET_GLOBAL_ALERT_MODAL } from "./components/GlobalAlertModal/globarAlertModalAction";
 import GlobalAlertModal from "./components/GlobalAlertModal/globalAlertModal";
 import UpdateProjectTask from "./components/ProjectBoard/ProjectTasks/UpdateProjectTask";
+import Landing from "./components/Layout/Landing";
+import Login from "./components/UserManagement/Login";
+import Register from "./components/UserManagement/Register";
 
 // For any backend error
 axios.interceptors.response.use(
@@ -72,6 +75,12 @@ function App() {
         <Router>
           <div className="App">
             <Header />
+            {/* Public Routes */}
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+
+            {/*  Private Routes */}
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/addProject" component={AddProject} />
             <Route exact path="/updateProject/:id" component={UpdateProject} />
