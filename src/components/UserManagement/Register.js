@@ -31,6 +31,11 @@ class Register extends Component {
     this.props.createNewUser(newUser, this.props.history);
   };
 
+  componentDidMount() {
+    if (this.props.securityReducer.validToken) {
+      this.props.history.push("/dashboard");
+    }
+  }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
@@ -122,9 +127,11 @@ class Register extends Component {
 Register.propTypes = {
   createNewUser: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
+  securityReducer: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   errors: state.errors,
+  securityReducer: state.securityReducer,
 });
 export default connect(mapStateToProps, { createNewUser })(Register);

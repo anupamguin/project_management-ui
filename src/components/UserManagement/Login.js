@@ -28,11 +28,17 @@ class Login extends Component {
     this.props.login(loginRequest, this.props.history);
   }
 
+  componentDidMount() {
+    if (this.props.securityReducer.validToken) {
+      this.props.history.push("/dashboard");
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
-    if (nextProps.security.validToken) {
+    if (nextProps.securityReducer.validToken) {
       this.props.history.push("/dashboard");
     }
   }
@@ -91,7 +97,7 @@ Login.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  security: state.securityReducer,
+  securityReducer: state.securityReducer,
   errors: state.errors,
 });
 export default connect(mapStateToProps, { login })(Login);
