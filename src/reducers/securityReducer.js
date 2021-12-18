@@ -10,7 +10,7 @@ const booleanActionPayload = (payload) => {
   else return false;
 };
 
-export default function (state = initialState, action) {
+const securityReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_CURRENT_USER:
       return {
@@ -21,4 +21,5 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};
+export default securityReducer;
