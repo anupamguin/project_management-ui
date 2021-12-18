@@ -21,7 +21,7 @@ class Header extends Component {
           </li>
         </ul>
 
-        <ul className="navbar-nav ">
+        <ul className="navbar-nav" style={{ position: "absolute", right: 90 }}>
           <li className="nav-item">
             <Link className="nav-link text-light fw-bold" to="/dashboard">
               <i className="fas fa-user-circle mr-2">

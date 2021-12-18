@@ -30,6 +30,7 @@ class Landing extends Component {
                   Login
                 </Link>
               </div>
+              <h5 className="text-center mt-5">Made by Anupam Guin</h5>
             </div>
           </div>
         </div>
