@@ -4,8 +4,10 @@ import rootReducer from "./reducers";
 import logger from "redux-logger";
 
 const initialState = {};
-const middleware = [thunk, logger];
+const middleware = [thunk];
 
+// logger only for development
+if (process.env.NODE_ENV === "development") middleware.push(logger);
 let store;
 
 const ReactReduxDevTools =
